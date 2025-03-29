@@ -1,0 +1,37 @@
+<form id="emailForm">
+    <h2>הרשמה</h2>
+    <input type="text" id="userName" placeholder="הכנס את שמך" required>
+    <input type="email" id="userEmail" placeholder="הכנס את האימייל שלך" required>
+    <button type="submit">שלח</button>
+</form>
+
+<script>
+document.getElementById("emailForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // מונע טעינה מחדש של הדף
+
+    const name = document.getElementById("userName").value;
+    const email = document.getElementById("userEmail").value;
+
+    fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            service_id: "service_5u512u7",
+            template_id: "template_g93mitf",
+            user_id: "VCV4jqBE8vedyJK-B",
+            template_params: { 
+                user_name: name,
+                to_email: email 
+            }
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("✅ המייל נשלח בהצלחה!");
+        } else {
+            alert("❌ אירעה שגיאה בשליחת המייל.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
+});
+</script>
