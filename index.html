@@ -1,16 +1,15 @@
-<form id="emailForm">
-    <h2>הרשמה</h2>
-    <input type="text" id="userName" placeholder="הכנס את שמך" required>
-    <input type="email" id="userEmail" placeholder="הכנס את האימייל שלך" required>
-    <button type="submit">שלח</button>
+<form id="emailForm" style="max-width: 400px; margin: auto; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+    <input type="email" id="userEmail" placeholder="הכנס את האימייל שלך" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px;">
+    <button type="submit" style="width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px;">שלח</button>
 </form>
 
 <script>
 document.getElementById("emailForm").addEventListener("submit", function(event) {
     event.preventDefault(); // מונע טעינה מחדש של הדף
 
-    const name = document.getElementById("userName").value;
     const email = document.getElementById("userEmail").value;
+    const button = event.target.querySelector('button');
+    button.disabled = true; // חוסם את הכפתור אחרי לחיצה
 
     fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
@@ -19,10 +18,7 @@ document.getElementById("emailForm").addEventListener("submit", function(event) 
             service_id: "service_5u512u7",
             template_id: "template_g93mitf",
             user_id: "VCV4jqBE8vedyJK-B",
-            template_params: { 
-                user_name: name,
-                to_email: email 
-            }
+            template_params: { to_email: email }
         })
     })
     .then(response => {
@@ -31,7 +27,11 @@ document.getElementById("emailForm").addEventListener("submit", function(event) 
         } else {
             alert("❌ אירעה שגיאה בשליחת המייל.");
         }
+        button.disabled = false; // מפעיל את הכפתור מחדש אם יש שגיאה
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        button.disabled = false; // מפעיל את הכפתור מחדש אם יש שגיאה
+    });
 });
 </script>
