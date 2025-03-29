@@ -1,41 +1,58 @@
-<form id="emailForm" style="max-width: 400px; margin: auto; padding: 25px; border-radius: 10px; border: 1px solid #ccc; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
-    <label for="userEmail" style="font-size: 16px; margin-bottom: 10px; display: block; color: #333;">הכנס את האימייל שלך:</label>
-    <input type="email" id="userEmail" placeholder="הכנס את האימייל שלך" required style="width: calc(100% - 22px); padding: 11px; margin-bottom: 15px; border: 1px solid #aaa; border-radius: 6px; font-size: 16px;">
-    <button type="submit" style="width: 100%; padding: 12px; background-color: #45a049; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease;">שלח</button>
-</form>
-
-<script>
-document.getElementById("emailForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // מונע טעינה מחדש של הדף
-
-    const email = document.getElementById("userEmail").value;
-    const button = event.target.querySelector('button');
-    button.disabled = true; // חוסם את הכפתור אחרי לחיצה
-    button.style.backgroundColor = '#66bb6a'; // משנה צבע כפתור לחסום
-
-    fetch("https://api.emailjs.com/api/v1.0/email/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            service_id: "service_5u512u7",
-            template_id: "template_g93mitf",
-            user_id: "VCV4jqBE8vedyJK-B",
-            template_params: { to_email: email }
-        })
-    })
-    .then(response => {
-        if (response.ok) {
-            alert("✅ המייל נשלח בהצלחה!");
-        } else {
-            alert("❌ אירעה שגיאה בשליחת המייל.");
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Varela', sans-serif;
         }
-        button.disabled = false; // מפעיל את הכפתור מחדש אם יש שגיאה
-        button.style.backgroundColor = '#45a049'; // מחזיר צבע כפתור רגיל
-    })
-    .catch(error => {
-        console.error("Error:", error);
-        button.disabled = false; // מפעיל את הכפתור מחדש אם יש שגיאה
-        button.style.backgroundColor = '#45a049'; // מחזיר צבע כפתור רגיל
+    </style>
+</head>
+<body>
+    <form id="emailForm" style="max-width: 400px; margin: auto; padding: 25px; border-radius: 10px; border: 1px solid #ccc; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <label for="userName" style="font-size: 16px; margin-bottom: 10px; display: block; color: #333;">הכנס את שמך:</label>
+        <input type="text" id="userName" placeholder="הכנס את שמך" style="width: calc(100% - 22px); padding: 11px; margin-bottom: 15px; border: 1px solid #aaa; border-radius: 6px; font-size: 16px;">
+
+        <label for="userEmail" style="font-size: 16px; margin-bottom: 10px; display: block; color: #333;">הכנס את האימייל שלך:</label>
+        <input type="email" id="userEmail" placeholder="הכנס את האימייל שלך" required style="width: calc(100% - 22px); padding: 11px; margin-bottom: 15px; border: 1px solid #aaa; border-radius: 6px; font-size: 16px;">
+
+        <button type="submit" style="width: 100%; padding: 12px; background-color: #45a049; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease;">שלח</button>
+    </form>
+
+    <script>
+    document.getElementById("emailForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // מונע טעינה מחדש של הדף
+
+        const name = document.getElementById("userName").value;
+        const email = document.getElementById("userEmail").value;
+        const button = event.target.querySelector('button');
+        button.disabled = true; // חוסם את הכפתור אחרי לחיצה
+        button.style.backgroundColor = '#66bb6a'; // משנה צבע כפתור לחסום
+
+        fetch("https://api.emailjs.com/api/v1.0/email/send", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                service_id: "service_5u512u7",
+                template_id: "template_g93mitf",
+                user_id: "VCV4jqBE8vedyJK-B",
+                template_params: { to_email: email, to_name: name } // הוספתי את השם לפרמטרים
+            })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("✅ המייל נשלח בהצלחה!");
+            } else {
+                alert("❌ אירעה שגיאה בשליחת המייל.");
+            }
+            button.disabled = false; // מפעיל את הכפתור מחדש אם יש שגיאה
+            button.style.backgroundColor = '#45a049'; // מחזיר צבע כפתור רגיל
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            button.disabled = false; // מפעיל את הכפתור מחדש אם יש שגיאה
+            button.style.backgroundColor = '#45a049'; // מחזיר צבע כפתור רגיל
+        });
     });
-});
-</script>
+    </script>
+</body>
