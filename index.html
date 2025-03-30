@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+<html lang="he">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
@@ -20,7 +23,19 @@
         <button type="submit" style="width: 100%; padding: 12px; background-color: #45a049; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease;">שלח</button>
     </form>
 
-
-    <script src="st.js"></script> 
+    <!-- טעינת קובץ ה-JavaScript עם המפתחות -->
+    <script>
+        fetch('c42.js')
+            .then(response => response.text()) // מקבל את התוכן של קובץ c42.js כטקסט
+            .then(configScript => {
+                eval(configScript);  // מבצע את הקוד מתוך c42.js, ויוצר את emailConfig
+                return fetch('st.js'); // עכשיו טוען את st.js אחרי שהמפתחות זמינים
+            })
+            .then(response => response.text()) // מקבל את התוכן של קובץ st.js כטקסט
+            .then(script => {
+                eval(script);  // מפעיל את הקוד מתוך st.js
+            })
+            .catch(error => console.error("Error loading scripts:", error)); // טיפול בשגיאות אם יש
+    </script>
 </body>
-
+</html>
