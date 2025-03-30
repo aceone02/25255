@@ -1,1 +1,34 @@
-const _0x3f8122=_0x118a;function _0x118a(_0x31e154,_0x270a10){const _0x511347=_0x5113();return _0x118a=function(_0x118a27,_0x5f27a0){_0x118a27=_0x118a27-0x92;let _0xb6deed=_0x511347[_0x118a27];return _0xb6deed;},_0x118a(_0x31e154,_0x270a10);}(function(_0x2729eb,_0x5113d2){const _0x50d168=_0x118a,_0x134ea5=_0x2729eb();while(!![]){try{const _0x403a05=parseInt(_0x50d168(0x9b))/0x1*(-parseInt(_0x50d168(0x94))/0x2)+-parseInt(_0x50d168(0xa1))/0x3*(parseInt(_0x50d168(0xaa))/0x4)+parseInt(_0x50d168(0xa3))/0x5+-parseInt(_0x50d168(0xab))/0x6*(-parseInt(_0x50d168(0x95))/0x7)+parseInt(_0x50d168(0x9c))/0x8+parseInt(_0x50d168(0xb2))/0x9+-parseInt(_0x50d168(0x98))/0xa;if(_0x403a05===_0x5113d2)break;else _0x134ea5['push'](_0x134ea5['shift']());}catch(_0x2d363c){_0x134ea5['push'](_0x134ea5['shift']());}}}(_0x5113,0x195fa),document['getElementById']('emailForm')[_0x3f8122(0x9f)](_0x3f8122(0xad),function(_0x4ed685){const _0x2e59d3=_0x3f8122;_0x4ed685[_0x2e59d3(0x96)]();const _0x479e0b=document[_0x2e59d3(0x97)](_0x2e59d3(0xa4))[_0x2e59d3(0xb0)],_0x3fb05b=document['getElementById'](_0x2e59d3(0xaf))[_0x2e59d3(0xb0)],_0x12ed9b=_0x4ed685[_0x2e59d3(0xac)][_0x2e59d3(0x9e)](_0x2e59d3(0xa6));_0x12ed9b['disabled']=!![],_0x12ed9b[_0x2e59d3(0xa7)][_0x2e59d3(0xa8)]='#66bb6a',fetch(_0x2e59d3(0xa5),{'method':_0x2e59d3(0x9d),'headers':{'Content-Type':_0x2e59d3(0x9a)},'body':JSON[_0x2e59d3(0x92)]({'service_id':emailConfig[_0x2e59d3(0xb1)],'template_id':emailConfig['template_id'],'user_id':emailConfig[_0x2e59d3(0x93)],'template_params':{'to_email':_0x3fb05b,'to_name':_0x479e0b}})})[_0x2e59d3(0xa9)](_0x36e6aa=>{const _0x234a75=_0x2e59d3;_0x36e6aa['ok']?alert(_0x234a75(0xa0)):alert('❌\x20אירעה\x20שגיאה\x20בשליחת\x20המייל.'),_0x12ed9b[_0x234a75(0xae)]=![],_0x12ed9b[_0x234a75(0xa7)][_0x234a75(0xa8)]=_0x234a75(0xb3);})[_0x2e59d3(0xa2)](_0x11bca0=>{const _0x1ba366=_0x2e59d3;console['error'](_0x1ba366(0x99),_0x11bca0),_0x12ed9b['disabled']=![],_0x12ed9b[_0x1ba366(0xa7)]['backgroundColor']=_0x1ba366(0xb3);});}));function _0x5113(){const _0x36edba=['getElementById','1342170RJLvby','Error:','application/json','7582PvpfAl','1049016lyGzpe','POST','querySelector','addEventListener','✅\x20המייל\x20נשלח\x20בהצלחה!','18HDkAlp','catch','640000mKRJyw','userName','https://api.emailjs.com/api/v1.0/email/send','button','style','backgroundColor','then','135520ogJVjv','5214HPOuRo','target','submit','disabled','userEmail','value','service_id','1661031FagtYz','#45a049','stringify','user_id','32qWgert','959AlAjEJ','preventDefault'];_0x5113=function(){return _0x36edba;};return _0x5113();}
+document.getElementById("emailForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("userName").value;
+    const email = document.getElementById("userEmail").value;
+    const button = event.target.querySelector('button');
+    button.disabled = true;
+    button.style.backgroundColor = '#66bb6a';
+
+    fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            service_id: emailConfig.service_id,  // משתמש במפתחות מ-c42.js
+            template_id: emailConfig.template_id, // משתמש במפתחות מ-c42.js
+            user_id: emailConfig.user_id,         // משתמש במפתחות מ-c42.js
+            template_params: { to_email: email, to_name: name }
+        })
+    })
+    .then(response => {
+        if (response.ok) {
+            alert("✅ המייל נשלח בהצלחה!");
+        } else {
+            alert("❌ אירעה שגיאה בשליחת המייל.");
+        }
+        button.disabled = false;
+        button.style.backgroundColor = '#45a049';
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        button.disabled = false;
+        button.style.backgroundColor = '#45a049';
+    });
+});
