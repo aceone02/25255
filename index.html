@@ -23,19 +23,18 @@
         <button type="submit" style="width: 100%; padding: 12px; background-color: #45a049; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease;">שלח</button>
     </form>
 
-    <!-- טעינת קובץ ה-JavaScript עם המפתחות -->
     <script>
         fetch('c42.js')
-            .then(response => response.text()) // מקבל את התוכן של קובץ c42.js כטקסט
+            .then(response => response.text()) 
             .then(configScript => {
-                eval(configScript);  // מבצע את הקוד מתוך c42.js, ויוצר את emailConfig
-                return fetch('st.js'); // עכשיו טוען את st.js אחרי שהמפתחות זמינים
+                eval(configScript);  
+                return fetch('st.js'); 
             })
-            .then(response => response.text()) // מקבל את התוכן של קובץ st.js כטקסט
+            .then(response => response.text()) 
             .then(script => {
-                eval(script);  // מפעיל את הקוד מתוך st.js
+                eval(script); 
             })
-            .catch(error => console.error("Error loading scripts:", error)); // טיפול בשגיאות אם יש
+            .catch(error => console.error("Error loading scripts:", error));
     </script>
 </body>
 </html>
